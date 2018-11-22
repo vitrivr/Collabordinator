@@ -1,0 +1,1 @@
+Collabordinator is a small utility which coordinates collaborative retrieval.
