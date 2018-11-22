@@ -16,8 +16,6 @@ object Collabordinator {
 
         Spark.init()
 
-        println("init")
-
     }
 
 }

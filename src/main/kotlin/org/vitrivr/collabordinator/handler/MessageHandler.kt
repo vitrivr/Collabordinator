@@ -34,24 +34,24 @@ object MessageHandler {
 
         when (message.action) {
             Action.ADD -> {
-                val newEntries = ListHandler.add(message.attribute)
+                val newEntries = ListHandler.add(message.key, message.attribute)
                 if (!newEntries.isEmpty()) {
-                    ConnectionHandler.broadcast(Message(Action.ADD, newEntries))
+                    ConnectionHandler.broadcast(Message(Action.ADD, message.key, newEntries))
                 }
             }
             Action.REMOVE -> {
-                val removedEntries = ListHandler.remove(message.attribute)
+                val removedEntries = ListHandler.remove(message.key, message.attribute)
                 if (!removedEntries.isEmpty()) {
-                    ConnectionHandler.broadcast(Message(Action.REMOVE, removedEntries))
+                    ConnectionHandler.broadcast(Message(Action.REMOVE, message.key, removedEntries))
                 }
             }
             Action.CLEAR -> {
-                ListHandler.clear()
-                ConnectionHandler.broadcast(Message(Action.CLEAR))
+                ListHandler.clear(message.key)
+                ConnectionHandler.broadcast(Message(Action.CLEAR, message.key))
             }
             Action.LIST -> {
                 user.remote.sendString(
-                        JSON.stringify(Message.serializer(), Message(Action.LIST, ListHandler.list()))
+                        JSON.stringify(Message.serializer(), Message(Action.LIST, message.key, ListHandler.list(message.key)))
                 )
             }
         }
