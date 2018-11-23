@@ -34,4 +34,8 @@ object ListHandler {
         allEntries(key).clear()
     }
 
+    fun getKeys(): List<String> {
+        return lists.keys.toList()
+    }
+
 }
