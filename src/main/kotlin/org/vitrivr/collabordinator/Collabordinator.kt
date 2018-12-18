@@ -10,7 +10,9 @@ object Collabordinator {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        Spark.port(12345)
+        val port = args.firstOrNull()?.toIntOrNull() ?: 12345
+
+        Spark.port(port)
 
         Spark.webSocket("/ws", MessageHandler)
 
