@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.kotlin_version = '1.3.10'
+    ext.kotlin_version = '1.3.61'
 
     repositories {
         mavenCentral()
@@ -39,5 +39,5 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 
-    archiveName = 'collabordinator.jar'
+    archiveFileName = 'collabordinator.jar'
 }
