@@ -9,7 +9,7 @@ object ListHandler {
 
     private fun allEntries(key: String): ConcurrentSkipListSet<String> {
         if (!lists.containsKey(key)) {
-            lists.put(key, ConcurrentSkipListSet<String>())
+            lists[key] = ConcurrentSkipListSet()
         }
         return lists[key]!!
     }

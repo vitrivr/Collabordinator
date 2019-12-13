@@ -35,7 +35,7 @@ object ConnectionHandler {
             try {
                 it.remote.sendString(jsonData)
             } catch (e: WebSocketException) {
-                logger.error("Connection $it already closed, removing")
+                logger.error("Connection to ${it.remoteAddress} already closed, removing")
                 this.connections.remove(it)
             }
         }

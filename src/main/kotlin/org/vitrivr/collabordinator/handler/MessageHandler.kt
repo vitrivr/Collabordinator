@@ -21,6 +21,7 @@ object MessageHandler {
         ConnectionHandler.addConnection(user)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @OnWebSocketClose
     fun onClose(user: Session, status: Int, reason: String) {
         ConnectionHandler.removeConnection(user)
@@ -38,14 +39,14 @@ object MessageHandler {
         when (message.action) {
             Action.ADD -> {
                 val newEntries = ListHandler.add(message.key, message.attribute)
-                if (!newEntries.isEmpty()) {
+                if (newEntries.isNotEmpty()) {
                     ConnectionHandler.broadcast(Message(Action.ADD, message.key, newEntries))
                     logger.info("Adding entries $newEntries to list ${message.key}")
                 }
             }
             Action.REMOVE -> {
                 val removedEntries = ListHandler.remove(message.key, message.attribute)
-                if (!removedEntries.isEmpty()) {
+                if (removedEntries.isNotEmpty()) {
                     ConnectionHandler.broadcast(Message(Action.REMOVE, message.key, removedEntries))
                     logger.info("Removing entries $removedEntries to list ${message.key}")
                 }
