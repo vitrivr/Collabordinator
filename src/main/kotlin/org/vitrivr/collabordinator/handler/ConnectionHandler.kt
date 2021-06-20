@@ -1,6 +1,6 @@
 package org.vitrivr.collabordinator.handler
 
-import kotlinx.serialization.json.JSON
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketException
 import org.slf4j.LoggerFactory
@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 object ConnectionHandler {
 
     private val logger = LoggerFactory.getLogger("ConnectionHandler")
+    private val mapper = jacksonObjectMapper()
 
     private val connections = CopyOnWriteArrayList<Session>()
 
@@ -19,7 +20,7 @@ object ConnectionHandler {
         logger.info("new connection: ${connection.remoteAddress}")
         ListHandler.getKeys().forEach {
             connection.remote.sendString(
-                    JSON.stringify(Message.serializer(), Message(Action.ADD, it, ListHandler.list(it)))
+                    mapper.writeValueAsString(Message(Action.ADD, it, ListHandler.list(it)))
             )
         }
     }
@@ -30,7 +31,7 @@ object ConnectionHandler {
     }
 
     fun broadcast(message: Message) {
-        val jsonData = JSON.stringify(Message.serializer(), message)
+        val jsonData = mapper.writeValueAsString(message)
         this.connections.forEach {
             try {
                 it.remote.sendString(jsonData)
