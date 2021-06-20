@@ -17,6 +17,7 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'idea'
 
 sourceCompatibility = 1.8
+mainClassName = "org.vitrivr.collabordinator.Collabordinator"
 
 repositories {
     mavenCentral()
@@ -38,17 +39,4 @@ dependencies {
     runtime group: 'org.mortbay.jetty.alpn', name: 'alpn-boot', version: alpnBootVersion
 
     compile "org.slf4j:slf4j-simple:1.8.0-beta4"
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'org.vitrivr.collabordinator.Collabordinator'
-    }
-
-    from {
-        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-
-    archiveFileName = 'collabordinator.jar'
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

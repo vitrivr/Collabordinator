@@ -51,8 +51,10 @@ object Collabordinator {
         val httpConfig = HttpConfiguration().apply {
             sendServerVersion = false
             sendXPoweredBy = false
-            secureScheme = "https"
-            securePort = sslPort
+            if (sslPort > 0) {
+                secureScheme = "https"
+                securePort = sslPort
+            }
 
         }
 
