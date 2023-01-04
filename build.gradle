@@ -43,3 +43,9 @@ dependencies {
 
     implementation "org.slf4j:slf4j-simple:2.0.0-alpha7"
 }
+
+startScripts {
+    doLast {
+        windowsScript.text = windowsScript.text.replaceAll('set CLASSPATH=.*', 'set CLASSPATH=.;%APP_HOME%/lib/*')
+    }
+}
